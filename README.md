@@ -11,6 +11,8 @@
 - Lab: L10 Thursday 1:30pm
 - GTA: Brian Hays
 
+## Project Name: TODO
+- Description: TODO
 
 ## Technology Used *: 
 - Server: Node Express
