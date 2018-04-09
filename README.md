@@ -12,7 +12,7 @@
 - GTA: Brian Hays
 
 ## Project Name: TODO
-- Description: TODO
+- Description: Our web app will allow visitors to create student and faculty accounts that can be used to reserve conference rooms and other spaces on campus. We will use the Lawson Computer Science Building for our project demonstration purposes.  
 
 ## Technology Used *: 
 - Server: Node Express
