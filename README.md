@@ -2,7 +2,6 @@
 - Subject to Change
 - All changes will be noted here in the README
 
-
 ## Abdul Aziz Bah: bah0@purdue.edu
 - Lab: Tuesday
 - GTA: Jordan Field
@@ -12,7 +11,7 @@
 - GTA: Brian Hays
 
 ## Project Name: LwsnMaps
-- Description: Our web app will allow visitors to create student and faculty accounts that can be used to reserve conference rooms and other spaces on campus. We will use the Lawson Computer Science Building for our project demonstration purposes.  
+- Description: Our web app will allow visitors to create student and faculty accounts that can be used to reserve conference rooms and other spaces on campus. We will use the Lawson Computer Science Building floorplans for project demonstration purposes.  
 
 ## Technology Used *: 
 - Server: Node Express
