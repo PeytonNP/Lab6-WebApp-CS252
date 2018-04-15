@@ -133,6 +133,7 @@
   <script src="js/script.js" type="text/javascript"></script>
   <script src='js/fullcalendar.min.js'></script>
   <script src='js/scheduler.min.js'></script>
+  <script type='text/javascript' src='fullcalendar/gcal.js'></script>
 
   <script>
     $('#button').on('click', function () {
@@ -186,6 +187,11 @@
             alert('Event ' + eventObj.title + ": " + eventObj.description);
           }
         },
+        googleCalendarApiKey: 'AIzaSyDsH-NZ4FqEFb_s7HaoBXkRyVx-g2HCpss',
+        events: {
+          googleCalendarId: '130e63e17r6pi9805unrea5c2s@group.calendar.google.com'
+        },
+        events: 'en.usa#holiday@group.v.calendar.google.com',
         events: [
           {
             title: 'All Day Event',
