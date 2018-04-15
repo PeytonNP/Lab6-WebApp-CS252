@@ -84,11 +84,48 @@
   <div class="clear"></div>
 
   <!--Content-->
-
   <div class="content" id="ajax-content">
     <div class="text-intro" id="site-type">
     </div>
   </div>
+
+  <div align="middle">
+    <button id="btn" data-toggle="modal" data-target="#modal">Button</button>
+  </div><br>
+  
+  <div id="modal" class="modal">
+    <div class="modal-dialog animated">
+      <div class="modal-content">
+        <form class="form-horizontal" method="get">
+          <div class="modal-header">
+            <strong>Create an Event</strong>
+          </div>
+
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="eventTitle" class="control-label col-xs-4">Event Title</label>
+              <div class="input-group col-xs-7">
+                <input type="text" name="eventTitle" id="eventTitle" class="form-control" />
+              </div>
+              <br>
+              <label for="eventDescription" class="control-label col-xs-4">Description</label>
+              <div class="input-group col-xs-7">
+                <input type="text" name="eventDescription" id="eventDescription" class="form-control" />
+              </div>
+              <br>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" type="submit" onclick="modal.close();">Create Event</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
 
   <div align="middle" style="width:75%; margin: 0 auto;">
     <div id='calendar'>
@@ -153,13 +190,19 @@
     };
   </script>
 
+  <script>  // script to trigger modal 
+    $('#btn').click(function () {
+      $('#modal').modal('show');
+    });
+  </script>
+
   <script>  // script to test fullCalendar
     $(document).ready(function () {
       $('#calendar').fullCalendar({
         schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
         eventLimit: true,
         header: {
-          left: 'month,agendaWeek,agendaDay',
+          left: 'month,agendaWeek,agendaDay addEvent',
           center: 'title',
           right: 'prev  today next'
         },
@@ -222,7 +265,27 @@
             color: 'blue',
             editable: true // user can edit this event (user events are editable)
           }
-        ]
+        ],
+        customButtons: {
+          addEvent: {
+            text: 'New Event',
+            click: function () {
+
+
+              /*var dateStr = prompt('Enter a date in YYYY-MM-DD format');
+              var date = moment(dateStr);
+              if (date.isValid()) {
+                $('#calendar').fullCalendar('renderEvent', {
+                  start: date,
+                  allDay: true
+                });
+                alert('Great. Now, update your database...');
+              } else {
+                alert('Invalid date.');
+              }*/
+            }
+          }
+        }
       });
     });
   </script>
