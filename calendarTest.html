@@ -378,6 +378,37 @@
         },
         defaultView: "listWeek",
         resourceLabelText: 'Rooms Available',
+        events: [
+          {
+            title: 'All Day Event',
+            start: '2018-04-01',
+            description: 'Event Notes',
+            color: 'red'
+          },
+          {
+            title: 'Conference',
+            start: '2018-04-11',
+            description: 'Event Notes',
+            end: '2018-04-13',
+            color: 'green'
+          },
+          {
+            title: 'Meeting',
+            start: '2018-04-12T10:30:00',
+            description: 'Event Notes',
+            end: '2018-04-12T12:30:00',
+            color: 'black',
+            editable: true  // user can edit this event (user events are editable)
+          },
+          {
+            title: 'Click for Google',
+            url: 'http://google.com/',
+            description: 'Event Notes',
+            start: '2018-04-28',
+            color: 'blue',
+            editable: true // user can edit this event (user events are editable)
+          }
+        ],
         resources: [
           { id: 'a', title: 'Auditorium A' },
           { id: 'b', title: 'Auditorium B' },
