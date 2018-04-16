@@ -91,8 +91,31 @@
 
   <div align="middle">
     <button id="btn" data-toggle="modal" data-target="#modal">Button</button>
-  </div><br>
-  
+  </div>
+  <br>
+
+  <div id="dialog">
+      <input type="text" id="input1" />
+      <input type="text" id="input2" />
+    </div>
+
+
+  <div align="middle" style="width:75%; margin: 0 auto;">
+    <div id='calendar'>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div id='calendar2'>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div id='readOnlyCalendar'>
+    </div>
+  </div>
+
+
   <div id="modal" class="modal">
     <div class="modal-dialog animated">
       <div class="modal-content">
@@ -125,25 +148,7 @@
     </div>
   </div>
 
-
-
-  <div align="middle" style="width:75%; margin: 0 auto;">
-    <div id='calendar'>
-    </div>
-    <br>
-    <br>
-    <br>
-    <div id='calendar2'>
-    </div>
-    <br>
-    <br>
-    <br>
-    <div id='readOnlyCalendar'>
-    </div>
-  </div>
-
   <div id="ajax-sidebar">
-
   </div>
 
   <!--Footer-->
@@ -218,7 +223,10 @@
         nowIndicator: true,
         selectable: true,
         editable: false,    // set master edit to be false (use cannot edit events already in db)
-        eventClick: function (eventObj) {
+        select: function (eventObj) {
+          $('#dialog').dialog('open');
+        },
+        /*eventClick: function (eventObj) {
           if (eventObj.url) {
             alert(
               'Opening ' + eventObj.url + ' in a new tab'
@@ -229,7 +237,7 @@
           } else {
             alert('Event ' + eventObj.title + ": " + eventObj.description);
           }
-        },
+        },*/
         googleCalendarApiKey: 'AIzaSyDsH-NZ4FqEFb_s7HaoBXkRyVx-g2HCpss',
         events: {
           googleCalendarId: '130e63e17r6pi9805unrea5c2s@group.calendar.google.com'
@@ -266,13 +274,14 @@
             editable: true // user can edit this event (user events are editable)
           }
         ],
-        customButtons: {
+
+        /*customButtons: {
           addEvent: {
             text: 'New Event',
-            click: function () {
+            click: function (event) {
+              $("#modal").modal('show');
 
-
-              /*var dateStr = prompt('Enter a date in YYYY-MM-DD format');
+              var dateStr = prompt('Enter a date in YYYY-MM-DD format');
               var date = moment(dateStr);
               if (date.isValid()) {
                 $('#calendar').fullCalendar('renderEvent', {
@@ -282,10 +291,10 @@
                 alert('Great. Now, update your database...');
               } else {
                 alert('Invalid date.');
-              }*/
+              }
             }
           }
-        }
+        }*/
       });
     });
   </script>
