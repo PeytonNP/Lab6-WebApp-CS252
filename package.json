@@ -1,0 +1,14 @@
+{
+    "name": "lswnmaps",
+    "version": "1.0.0",
+    "description": "Web app allows users to book rooms in LWSN",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "ejs": "^2.5.8",
+        "express": "^4.16.3"
+    },
+    "author": "Abdul Aziz Bah and Peyton Puckett",
+    "license": "ISC"
+}
