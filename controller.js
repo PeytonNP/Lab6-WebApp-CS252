@@ -4,7 +4,9 @@ module.exports = function(app) {
     var bodyParser = require("body-parser"); //Import bodyParser so we can read request body data
 
     var mongoose = require('mongoose');
+  
     //mongoose.connect('mongodb://abah:abah@ds247619.mlab.com:47619/lswpmap');
+
     //mongoose.connect(keys.mongodb.dbURI);
 
     var userSchema = new mongoose.Schema({
@@ -29,7 +31,9 @@ module.exports = function(app) {
         owner: String
     });
 
+
     ///var db_users = mongoose.model('User', userSchema);
+
     //var db_users = mongoose.model('User', userSchema);
     //var db_users = mongoose.model('User', userSchema);
 
@@ -167,6 +171,7 @@ module.exports = function(app) {
             }
         });
     });
+
 
     app.get('/calender', function(req, res) {
         console.log("Am in get /signin")
