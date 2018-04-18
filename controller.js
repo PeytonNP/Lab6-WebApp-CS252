@@ -2,8 +2,38 @@ module.exports = function(app) {
 
     var firebase = require("firebase");
     var bodyParser = require("body-parser"); //Import bodyParser so we can read request body data
-    //var database = firebase.database();
+
     var mongoose = require('mongoose');
+    mongoose.connect('mongodb://abah:abah@ds247619.mlab.com:47619/lswpmap');
+    //mongoose.connect(keys.mongodb.dbURI);
+
+    var userSchema = new mongoose.Schema({
+        firstname: String,
+        lastname: String,
+        email: String,
+        password: String,
+        events: {
+            date: String,
+            time: String,
+            room: String
+        }
+    });
+
+    var roomSchema = new mongoose.Schema({
+        events: {
+            title: String,
+            start: String,
+            end: String,
+            editable: Boolean,
+        },
+        owner: String
+    });
+
+    var db_users = mongoose.model('User', userSchema);
+    //var db_users = mongoose.model('User', userSchema);
+    //var db_users = mongoose.model('User', userSchema);
+
+
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
         extended: true
@@ -19,6 +49,8 @@ module.exports = function(app) {
     };
 
     firebase.initializeApp(config);
+
+    var database = firebase.database();
 
     function isAdmin(req, res, next) {
 
@@ -204,5 +236,21 @@ module.exports = function(app) {
             res.status(401).send(error.message);
         });
     });
+    /*db_users.find({ username: 'abah', password: 'abah' }, function(err, data) {
+        if (err) throw err;
+    });
+    
+    var newPost = db_posts({
+            username: "abah",
+            password: "abah",
+            address: "mememe",
+            phone: "9090933020",
+            dod: "06/06/06"
+        }).save(function(err, data) {
+            if (err) throw err;
+            console.log("save success");
+            res.json(data);
+        });
+    */
 
 }
