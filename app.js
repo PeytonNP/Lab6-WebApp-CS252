@@ -5,8 +5,8 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname));
 
 app.get('/', function(req, res) {
-    console.log("ksdjaflsdk testing");
-    res.render('ind.ejs');
+    //console.log("ksdjaflsdk testing");
+    // res.render('ind.ejs');
 });
 
 app.listen(8042);
