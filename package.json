@@ -1,33 +1,32 @@
 {
-  "name": "lswnmaps",
-  "version": "1.0.0",
-  "description": "this web app create mapp of lswn and allows uers to book rooms at lwsn",
-  "main": "index.js",
-  "scripts": {
-    "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bahaaGit/Lab6-WebApp-CS252.git"
-  },
-  "author": "Abdul Aziz Bah and Peyton Puckett",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/bahaaGit/Lab6-WebApp-CS252/issues"
-  },
-  "homepage": "https://github.com/bahaaGit/Lab6-WebApp-CS252#readme",
-  "dependencies": {
-    "ejs": "^2.5.8",
-    "express": "^4.16.3",
+    "name": "lswnmaps",
+    "version": "1.0.0",
+    "description": "this web app create mapp of lswn and allows uers to book rooms at lwsn",
+    "main": "index.js",
+    "scripts": {
+        "start": "node app.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/bahaaGit/Lab6-WebApp-CS252.git"
+    },
+    "author": "Abdul Aziz Bah and Peyton Puckett",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/bahaaGit/Lab6-WebApp-CS252/issues"
+    },
+    "homepage": "https://github.com/bahaaGit/Lab6-WebApp-CS252#readme",
+    "dependencies": {
+        "ejs": "^2.5.8",
+        "express": "^4.16.3",
 
-    "firebase": "^4.12.1",
-    "mongoose": "^5.0.15"
-  },
-  "devDependencies": {
-    "nodemon": "^1.17.3",
-    "webpack": "^4.5.0",
-    "webpack-cli": "^2.0.14"
-    "npm": "^5.8.0"
-  }
+        "firebase": "^4.12.1",
+        "mongoose": "^5.0.15"
+    },
+    "devDependencies": {
+        "nodemon": "^1.17.3",
+        "webpack": "^4.5.0",
+        "webpack-cli": "^2.0.14"
+    }
 }

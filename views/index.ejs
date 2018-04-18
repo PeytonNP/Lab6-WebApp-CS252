@@ -2,17 +2,94 @@
 <html lang="en">
 
 <head>
-    <% include partials/head %>
+    <% include partials/temhead %>
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="login-container">
-            <button type="button" class="btn btn-primary btn-lg">Large button</button>
-            <button type="button" class="btn btn-secondary btn-lg">Large button</button>
+    <!--Header-->
+    <% include partials/header %>
+
+        <div class="clear"></div>
+
+        <div class="content" id="ajax-content">
+            <div class="text-intro" id="site-type">
+                <h1>An interactive way for students and faculty can reserve space in Lawson.</h1>
+                <p>Begin using the application by logging in or creating a new account.</p>
+                <h2>Currently, if a user accepts reserving a room, their account page is presented. Maybe provide an intermediate step.</h2>
+            </div>
+
+            <!--modal pop up-->
+            <div align="middle" id="buttonTest">
+                <!-- Modal -->
+                <div align="middle" class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modal-title">Reserve a Room</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+                            </div>
+                            <div class="modal-body">
+                                TODO: Edit modal body
+                            </div>
+                            <div class="modal-footer">
+                                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                                <form action="calendarTest.html">
+                                    <input class="btn btn-dark" style="background-color:black; color:white;" type="submit" value="View Room Calendar" />
+                                    <!--<button type="button" class="btn btn-dark" style="background-color:black; color:white;">View Room Calendar</button>-->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% include partials/map %>
         </div>
-    </div>
-    <script src="../js/script.js"></script>
+        <div id="ajax-sidebar"></div>
+
+        <!--Footer-->
+        <% include partials/footer %>
+
+            <!--Scripts-->
+            <script src="../js/jquery.min.js"></script>
+            <script src="../js/jquery.easing.min.js"></script>
+            <script src="../js/modernizr.custom.42534.js" type="text/javascript"></script>
+            <script src="../js/jquery.waitforimages.js" type="text/javascript"></script>
+            <script src="../js/typed.js" type="text/javascript"></script>
+            <script src="../js/masonry.pkgd.min.js" type="text/javascript"></script>
+            <script src="../js/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+            <script src="../js/jquery.jkit.1.2.16.min.js"></script>
+            <script src="../js/script.js" type="text/javascript"></script>
+
+            <script>
+                $('#button').on('click', function() {
+                    $(".opacity-nav").fadeToggle("slow", "linear");
+                    // Animation complete.
+                });
+            </script>
+
+            <script type="text/javascript">
+                // Old script that makes popup and redirects to account page
+                function reserveRoom(obj) {
+                    var str = "Would you like to reserve room " + $(obj).attr("title") + "?";
+                    if (confirm(str)) {
+                        document.location.href = "account.html";
+                    } else {
+                        return false;
+                    }
+                };
+            </script>
+
+            <script>
+                // script to trigger modal 
+                $('#calendarModal').on('show.bs.modal', function(event) {
+                    // Add dynamic content
+                    // Calendar
+                    // Show default information from the database, maybe the schedule for the current day
+                });
+            </script>
+
 </body>
 
 </html>
