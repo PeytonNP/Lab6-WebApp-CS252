@@ -18,6 +18,13 @@
   "homepage": "https://github.com/bahaaGit/Lab6-WebApp-CS252#readme",
   "dependencies": {
     "ejs": "^2.5.8",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "firebase": "^4.12.1",
+    "mongoose": "^5.0.15"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14"
   }
 }
