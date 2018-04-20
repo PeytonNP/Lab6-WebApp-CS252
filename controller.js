@@ -4,35 +4,50 @@ module.exports = function(app) {
     var bodyParser = require("body-parser"); //Import bodyParser so we can read request body data
 
     var mongoose = require('mongoose');
-    //mongoose.connect('mongodb://abah:abah@ds247619.mlab.com:47619/lswpmap');
+    mongoose.connect('mongodb://abah:abah@ds247619.mlab.com:47619/lswpmap');
     //mongoose.connect(keys.mongodb.dbURI);
 
-    var userSchema = new mongoose.Schema({
-        firstname: String,
-        lastname: String,
-        email: String,
-        password: String,
-        events: {
-            date: String,
-            time: String,
-            room: String
-        }
-    });
 
-    var roomSchema = new mongoose.Schema({
-        events: {
+
+    var rooma = new mongoose.Schema({
+        roomname: String,
+        editable: Boolean,
+        owner: String,
+        events: [{
             title: String,
             start: String,
-            end: String,
-            editable: Boolean,
-        },
-        owner: String
+            description: String,
+            color: String
+        }, ]
     });
 
-    ///var db_users = mongoose.model('User', userSchema);
+    var db_room = mongoose.model('Room', rooma);
     //var db_users = mongoose.model('User', userSchema);
     //var db_users = mongoose.model('User', userSchema);
 
+    var newPost = db_room([{
+        roomname: 'B132A',
+        editable: false,
+        events: [{
+            title: 'All Day Event',
+            start: '2018-04-01',
+            description: 'Event Notes',
+            color: 'red'
+        }, {
+            title: 'All Day Event',
+            start: '2018-04-01',
+            description: 'Event Notes',
+            color: 'red'
+        }]
+    }]).save(function(err, data) {
+        if (err) throw err;
+        console.log("save success");
+        //res.json(data);
+    });
+    db_room.findOne({ roomname: 'B160' }, function(err, result) {
+        if (err) throw err;
+        console.log(result);
+    });
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
@@ -51,6 +66,9 @@ module.exports = function(app) {
     firebase.initializeApp(config);
 
     var database = firebase.database();
+    var usersRef = database.ref('users');
+    var roomsRef = database.ref('rooms');
+    var roomRef = roomsRef.child('rooms');
 
     function isAdmin(req, res, next) {
 
@@ -68,7 +86,7 @@ module.exports = function(app) {
                 var providerData = user.providerData;
                 // ...
                 //allow next route to run
-                next();
+                //next();
             } else {
                 // User is signed out.
                 // ...
@@ -135,7 +153,16 @@ module.exports = function(app) {
             });
     }
 
+    function snapshotToArray(snapshot) {
+        var returnArr = [];
 
+        snapshot.forEach(function(childSnapshot) {
+            var item = childSnapshot.val();
+            //item.key = childSnapshot.key;
+            returnArr.push(item);
+        });
+        return returnArr;
+    };
 
     app.get('/', function(req, res) {
         console.log("Am in get /")
@@ -159,6 +186,8 @@ module.exports = function(app) {
             if (user) {
                 // User is signed in.
                 console.log("Currently logged in");
+
+                console.log("save");
                 res.render('profile.ejs');
             } else {
                 // No user is signed in.
@@ -168,9 +197,44 @@ module.exports = function(app) {
         });
     });
 
+    B160 = {
+        roomname: 'B160',
+        editable: false,
+        events: [{
+            title: 'All Day Event',
+            start: '2018-04-01',
+            description: 'Event Notes',
+            color: 'red'
+        }, {
+            title: 'All Day Event',
+            start: '2018-04-01',
+            description: 'Event Notes',
+            color: 'red'
+        }]
+    }
+
     app.get('/calender', function(req, res) {
         console.log("Am in get /signin")
-        res.render('calender.ejs');
+
+        //usersRef.on("value", function(snapshot) {
+        roomsRef.on("value", function(snapshot) {
+
+            var data = snapshotToArray(snapshot);
+            console.log(data);
+            res.render('calender', { posts: data });
+        }, function(errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+        console.log("");
+        console.log("");
+
+        //console.log(B160);
+        /*db_room.find({ roomname: 'B160', owner: 'B17760', }, function(err, data) {
+            console.log(data.roomname);
+            res.render('calender', { posts: data });
+            if (err) throw err;
+        });*/
+        //res.render('calender', { posts: B160 });
     });
 
     app.post('/signin', function(req, res) {
@@ -179,11 +243,6 @@ module.exports = function(app) {
         var email = req.body.si_email;
         var password = req.body.si_password;
 
-        //loginUser(email, password)
-        //res.render('signin.ejs');
-        /*res.json({
-            message: "Sucessful Sign In"
-        });*/
 
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(function(firebaseUser) {
@@ -226,11 +285,6 @@ module.exports = function(app) {
     app.post('/signout', function(req, res) {
         console.log("Am in Post /signout")
 
-        //loginUser(email, password)
-        //res.render('signin.ejs');
-        /*res.json({
-            message: "Sucessful Sign out"
-        });*/
         firebase.auth().signOut().then(function() {
             // Sign-out successful.
             console.log("Sign-out successful");
@@ -242,20 +296,30 @@ module.exports = function(app) {
         });
     });
     /*db_users.find({ username: 'abah', password: 'abah' }, function(err, data) {
-        if (err) throw err;
-    });
+                        if (err) throw err;
+                    });
     
-    var newPost = db_posts({
-            username: "abah",
-            password: "abah",
-            address: "mememe",
-            phone: "9090933020",
-            dod: "06/06/06"
-        }).save(function(err, data) {
-            if (err) throw err;
-            console.log("save success");
-            res.json(data);
-        });
-    */
+                    var newPost = db_posts({
+                            username: "abah",
+                            password: "abah",
+                            address: "mememe",
+                            phone: "9090933020",
+                            dod: "06/06/06"
+                        }).save(function(err, data) {
+                            if (err) throw err;
+                            console.log("save success");
+                            res.json(data);
+                        });
+                       var userSchema = new mongoose.Schema({
+        firstname: String,
+        lastname: String,
+        email: String,
+        password: String,
+        events: {
+            date: String,
+            time: String,
+            room: String
+        }
+    });*/
 
 }
