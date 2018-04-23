@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-                                    <!-- <form action="/calender">
+                                    <!-- <form action="/">
                                     <input class="btn btn-dark" style="background-color:black; color:white;" type="submit" value="Create an Event" />
                                 </form>-->
 
@@ -100,8 +100,6 @@
 
                                     <div class="modal-footer">
                                         <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
-                                        <!-- <button class="btn btn-primary" type="submit" onclick="modal.close(); $('#calendarModal').modal('show');">Create Event</button>-->
-                                        
                                         <input class="btn btn-dark" style="background-color:black; color:white;" type="submit" value="Create an Event" />
                                     </div>
                                 </form>
@@ -142,8 +140,6 @@
                 <script>
                     // script to trigger modal 
                     $('#reserveBtn').click(function () {
-                        //document.getElementById('calendarModal').style.display = "none";
-                        //$('#calendarModal').modal('toggle');
                         $('#modal').modal('show');
                     });
                 </script>
@@ -160,7 +156,7 @@
                     };
                 </script>
 
-                <script>
+                <!--<script>
                     // script to trigger modal 
                     $('#calendarModal').on('show.bs.modal', function (event) {
                         var triggerElement = $(event.relatedTarget);
@@ -169,11 +165,10 @@
                         // Calendar
                         // Show default information from the database, maybe the schedule for the current day
                     });
-                </script>
+                </script>-->
 
-                <script>
+                <!--<script>
                     // List view (possible read only view for users)
-                    readOnlyCalendar
                     $(document).ready(function () {
                         $('#readOnlyCalendar').fullCalendar({
                             schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
@@ -221,29 +216,10 @@
                                 color: 'blue',
                                 editable: true // user can edit this event (user events are editable)
                             }],
-                            resources: [{
-                                id: 'a',
-                                title: 'Auditorium A'
-                            }, {
-                                id: 'b',
-                                title: 'Auditorium B'
-                            }, {
-                                id: 'c',
-                                title: 'Auditorium C'
-                            }, {
-                                id: 'd',
-                                title: 'Auditorium D'
-                            }, {
-                                id: 'e',
-                                title: 'Auditorium E'
-                            }, {
-                                id: 'f',
-                                title: 'Auditorium F'
-                            }],
-                            noEventsMessage: "There are currently no events for the given time."
+                            noEventsMessage: "We're sorry! There are currently no events for the given timeframe."
                         });
                     });
-                </script>
+                </script>-->
 
 </body>
 

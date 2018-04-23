@@ -174,9 +174,9 @@ module.exports = function(app) {
     });
 
 
-    app.get('/calender', function(req, res) {
-        console.log("Am in get /calender")
-        res.render('calender.ejs');
+    app.get('/calendar', function(req, res) {
+        console.log("Am in get /calendar")
+        res.render('calendar.ejs');
     });
 
     app.get('/feedback', function(req, res) {
