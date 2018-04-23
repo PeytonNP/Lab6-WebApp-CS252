@@ -197,22 +197,6 @@ module.exports = function(app) {
         });
     });
 
-    B160 = {
-        roomname: 'B160',
-        editable: false,
-        events: [{
-            title: 'All Day Event',
-            start: '2018-04-01',
-            description: 'Event Notes',
-            color: 'red'
-        }, {
-            title: 'All Day Event',
-            start: '2018-04-01',
-            description: 'Event Notes',
-            color: 'red'
-        }]
-    }
-
     app.get('/calender', function(req, res) {
         console.log("Am in get /signin")
 
@@ -295,31 +279,4 @@ module.exports = function(app) {
             res.status(401).send(error.message);
         });
     });
-    /*db_users.find({ username: 'abah', password: 'abah' }, function(err, data) {
-                        if (err) throw err;
-                    });
-    
-                    var newPost = db_posts({
-                            username: "abah",
-                            password: "abah",
-                            address: "mememe",
-                            phone: "9090933020",
-                            dod: "06/06/06"
-                        }).save(function(err, data) {
-                            if (err) throw err;
-                            console.log("save success");
-                            res.json(data);
-                        });
-                       var userSchema = new mongoose.Schema({
-        firstname: String,
-        lastname: String,
-        email: String,
-        password: String,
-        events: {
-            date: String,
-            time: String,
-            room: String
-        }
-    });*/
-
 }
