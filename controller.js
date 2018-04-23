@@ -4,6 +4,7 @@ module.exports = function(app) {
     var bodyParser = require("body-parser"); //Import bodyParser so we can read request body data
 
     var mongoose = require('mongoose');
+<<<<<<< HEAD
     mongoose.connect('mongodb://abah:abah@ds247619.mlab.com:47619/lswpmap');
     //mongoose.connect(keys.mongodb.dbURI);
 
@@ -48,6 +49,41 @@ module.exports = function(app) {
         if (err) throw err;
         console.log(result);
     });
+=======
+  
+    //mongoose.connect('mongodb://abah:abah@ds247619.mlab.com:47619/lswpmap');
+
+    //mongoose.connect(keys.mongodb.dbURI);
+
+    var userSchema = new mongoose.Schema({
+        firstname: String,
+        lastname: String,
+        email: String,
+        password: String,
+        events: {
+            date: String,
+            time: String,
+            room: String
+        }
+    });
+
+    var roomSchema = new mongoose.Schema({
+        events: {
+            title: String,
+            start: String,
+            end: String,
+            editable: Boolean,
+        },
+        owner: String
+    });
+
+
+    ///var db_users = mongoose.model('User', userSchema);
+
+    //var db_users = mongoose.model('User', userSchema);
+    //var db_users = mongoose.model('User', userSchema);
+
+>>>>>>> upstream/template
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
@@ -66,9 +102,12 @@ module.exports = function(app) {
     firebase.initializeApp(config);
 
     var database = firebase.database();
+<<<<<<< HEAD
     var usersRef = database.ref('users');
     var roomsRef = database.ref('rooms');
     var roomRef = roomsRef.child('rooms');
+=======
+>>>>>>> upstream/template
 
     function isAdmin(req, res, next) {
 
@@ -86,7 +125,11 @@ module.exports = function(app) {
                 var providerData = user.providerData;
                 // ...
                 //allow next route to run
+<<<<<<< HEAD
                 //next();
+=======
+                next();
+>>>>>>> upstream/template
             } else {
                 // User is signed out.
                 // ...
@@ -153,6 +196,7 @@ module.exports = function(app) {
             });
     }
 
+<<<<<<< HEAD
     function snapshotToArray(snapshot) {
         var returnArr = [];
 
@@ -163,11 +207,18 @@ module.exports = function(app) {
         });
         return returnArr;
     };
+=======
+
+>>>>>>> upstream/template
 
     app.get('/', function(req, res) {
         console.log("Am in get /")
         res.render('index.ejs');
     });
+<<<<<<< HEAD
+=======
+    
+>>>>>>> upstream/template
 
     app.get('/signin', function(req, res) {
         console.log("Am in get /signin")
@@ -186,8 +237,11 @@ module.exports = function(app) {
             if (user) {
                 // User is signed in.
                 console.log("Currently logged in");
+<<<<<<< HEAD
 
                 console.log("save");
+=======
+>>>>>>> upstream/template
                 res.render('profile.ejs');
             } else {
                 // No user is signed in.
@@ -197,6 +251,7 @@ module.exports = function(app) {
         });
     });
 
+<<<<<<< HEAD
     app.get('/calender', function(req, res) {
         console.log("Am in get /signin")
 
@@ -219,6 +274,17 @@ module.exports = function(app) {
             if (err) throw err;
         });*/
         //res.render('calender', { posts: B160 });
+=======
+
+    app.get('/calender', function(req, res) {
+        console.log("Am in get /calender")
+        res.render('calender.ejs');
+    });
+
+    app.get('/feedback', function(req, res) {
+        console.log("Am in get /feedback")
+        res.render('feedback.ejs');
+>>>>>>> upstream/template
     });
 
     app.post('/signin', function(req, res) {
@@ -227,6 +293,14 @@ module.exports = function(app) {
         var email = req.body.si_email;
         var password = req.body.si_password;
 
+<<<<<<< HEAD
+=======
+        //loginUser(email, password)
+        //res.render('signin.ejs');
+        /*res.json({
+            message: "Sucessful Sign In"
+        });*/
+>>>>>>> upstream/template
 
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(function(firebaseUser) {
@@ -269,6 +343,14 @@ module.exports = function(app) {
     app.post('/signout', function(req, res) {
         console.log("Am in Post /signout")
 
+<<<<<<< HEAD
+=======
+        //loginUser(email, password)
+        //res.render('signin.ejs');
+        /*res.json({
+            message: "Sucessful Sign out"
+        });*/
+>>>>>>> upstream/template
         firebase.auth().signOut().then(function() {
             // Sign-out successful.
             console.log("Sign-out successful");
@@ -279,4 +361,24 @@ module.exports = function(app) {
             res.status(401).send(error.message);
         });
     });
+<<<<<<< HEAD
+=======
+    /*db_users.find({ username: 'abah', password: 'abah' }, function(err, data) {
+        if (err) throw err;
+    });
+    
+    var newPost = db_posts({
+            username: "abah",
+            password: "abah",
+            address: "mememe",
+            phone: "9090933020",
+            dod: "06/06/06"
+        }).save(function(err, data) {
+            if (err) throw err;
+            console.log("save success");
+            res.json(data);
+        });
+    */
+
+>>>>>>> upstream/template
 }
