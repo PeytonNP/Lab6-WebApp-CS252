@@ -2,27 +2,249 @@
 <html lang="en">
 
 <head>
-    <% include partials/head %>
-        <link rel="stylesheet" href="../css/style.css">
+    <% include partials/temhead %>
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="login-container">
-            <div class="wrapper">
-                <form class="form-signin" method="post" action="/auth/signin">
-                    <h2 class="form-signin-heading">Please login</h2>
-                    <div class="avatar"> </div>
-                    <input type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />
-                    <input type="password" class="form-control" name="password" placeholder="Password" required="" />
-                    <label class="checkbox">
-                        <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
-                      </label>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-                </form>
+    <% var currentRoom = ""; %>
+        <!--Header-->
+        <% include partials/header %>
+
+            <div class="clear"></div>
+
+            <div class="content" id="ajax-content">
+                <div class="text-intro" id="site-type">
+                    <h1>An interactive way for students and faculty can reserve space in Lawson.</h1>
+                    <h4>Click on a room to view its current calendar or to create a new event.</h4>
+                </div>
+
+                <!--modal pop up-->
+                <div align="middle" id="buttonTest">
+                    <!-- Modal -->
+                    <div align="middle" class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title" id="modal-title">View Current Events or Reserve a Room</h3>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div id='readOnlyCalendar'>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                                    <!-- <form action="/calender">
+                                    <input class="btn btn-dark" style="background-color:black; color:white;" type="submit" value="Create an Event" />
+                                </form>-->
+
+                                    <button id="reserveBtn" type="button" class="btn btn-dark" style="background-color:black; color:white;" data-toggle="modal"
+                                        data-target="#modal">Create an Event</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Creation Modal -->
+                    <div id="modal" class="modal">
+                        <div class="modal-dialog animated">
+                            <div class="modal-content">
+                                <form class="form-horizontal" action="/profile">
+                                    <!-- TODO change from action to get request when interacting with db-->
+                                    <div class="modal-header">
+                                        <strong>Create an Event</strong>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="roomname" class="control-label col-xs-4">Room</label>
+                                            <div class="input-group col-xs-7">
+                                                <input type="text" name="roomname" id="roomname" value="GET EJS VAR FOR ROOM NAME" class="form-control" readonly/>
+                                            </div>
+                                            <br>
+                                            <label for="roomname" class="control-label col-xs-4">User</label>
+                                            <div class="input-group col-xs-7">
+                                                <input type="text" name="roomname" id="roomname" value="CURRENTLY AUTHENTICATED USER" class="form-control" readonly/>
+                                            </div>
+                                            <br>
+                                            <label for="eventTitle" class="control-label col-xs-4">Event Title</label>
+                                            <div class="input-group col-xs-7">
+                                                <input type="text" name="eventTitle" id="eventTitle" class="form-control" />
+                                            </div>
+                                            <br>
+                                            <label for="eventDescription" class="control-label col-xs-4">Description</label>
+                                            <div class="input-group col-xs-7">
+                                                <input type="text" name="eventDescription" id="eventDescription" class="form-control" />
+                                            </div>
+                                            <br>
+                                            <label for="date" class="control-label col-xs-4">Date</label>
+                                            <div class="input-group col-xs-7">
+                                                <input type="date" name="date" id="date" class="form-control" />
+                                            </div>
+                                            <br>
+                                            <label for="startTime" class="control-label col-xs-4">Start Time</label>
+                                            <div class="input-group col-xs-7">
+                                                <input type="time" name="startTime" id="startTime" class="form-control" />
+                                            </div>
+                                            <br>
+                                            <label for="endTime" class="control-label col-xs-4">End Time</label>
+                                            <div class="input-group col-xs-7">
+                                                <input type="time" name="endTime" id="endTime" class="form-control" />
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                                        <!-- <button class="btn btn-primary" type="submit" onclick="modal.close(); $('#calendarModal').modal('show');">Create Event</button>-->
+                                        
+                                        <input class="btn btn-dark" style="background-color:black; color:white;" type="submit" value="Create an Event" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <% include partials/map %>
             </div>
-        </div>
-    </div>
+            <div id="ajax-sidebar"></div>
+
+            <!--Footer-->
+            <% include partials/footer %>
+
+                <!--Scripts-->
+                <script src="../js/jquery.min.js"></script>
+                <script src="../js/jquery.easing.min.js"></script>
+                <script src="../js/modernizr.custom.42534.js" type="text/javascript"></script>
+                <script src="../js/jquery.waitforimages.js" type="text/javascript"></script>
+                <script src="../js/typed.js" type="text/javascript"></script>
+                <script src="../js/masonry.pkgd.min.js" type="text/javascript"></script>
+                <script src="../js/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+                <script src="../js/jquery.jkit.1.2.16.min.js"></script>
+                <script src="../js/script.js" type="text/javascript"></script>
+                <script src='js/fullcalendar.min.js'></script>
+                <script src='js/scheduler.min.js'></script>
+
+                <script>
+                    $('#button').on('click', function () {
+                        $(".opacity-nav").fadeToggle("slow", "linear");
+                        // Animation complete.
+                    });
+                </script>
+
+                <script>
+                    // script to trigger modal 
+                    $('#reserveBtn').click(function () {
+                        //document.getElementById('calendarModal').style.display = "none";
+                        //$('#calendarModal').modal('toggle');
+                        $('#modal').modal('show');
+                    });
+                </script>
+
+                <script type="text/javascript">
+                    // Old script that makes popup and redirects to account page
+                    function reserveRoom(obj) {
+                        var str = "Would you like to reserve room " + $(obj).attr("title") + "?";
+                        if (confirm(str)) {
+                            document.location.href = "account.html";
+                        } else {
+                            return false;
+                        }
+                    };
+                </script>
+
+                <script>
+                    // script to trigger modal 
+                    $('#calendarModal').on('show.bs.modal', function (event) {
+                        var triggerElement = $(event.relatedTarget);
+
+                        // Add dynamic content
+                        // Calendar
+                        // Show default information from the database, maybe the schedule for the current day
+                    });
+                </script>
+
+                <script>
+                    // List view (possible read only view for users)
+                    readOnlyCalendar
+                    $(document).ready(function () {
+                        $('#readOnlyCalendar').fullCalendar({
+                            schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+                            views: {
+                                listDay: {
+                                    buttonText: "Events Today"
+                                },
+                                listWeek: {
+                                    buttonText: "Events this Week"
+                                },
+                                listMonth: {
+                                    buttonText: "Events this Month"
+                                }
+                            },
+                            header: {
+                                left: 'prev today next',
+                                center: 'title',
+                                right: 'listDay,listWeek,listMonth'
+                            },
+                            defaultView: "listMonth",
+                            resourceLabelText: 'Rooms Available',
+                            events: [{
+                                title: 'All Day Event',
+                                start: '2018-04-01',
+                                description: 'Event Notes',
+                                color: 'red'
+                            }, {
+                                title: 'Conference',
+                                start: '2018-04-11',
+                                description: 'Event Notes',
+                                end: '2018-04-13',
+                                color: 'green'
+                            }, {
+                                title: 'Meeting',
+                                start: '2018-04-12T10:30:00',
+                                description: 'Event Notes',
+                                end: '2018-04-12T12:30:00',
+                                color: 'black',
+                                editable: true // user can edit this event (user events are editable)
+                            }, {
+                                title: 'Click for Google',
+                                url: 'http://google.com/',
+                                description: 'Event Notes',
+                                start: '2018-04-28',
+                                color: 'blue',
+                                editable: true // user can edit this event (user events are editable)
+                            }],
+                            resources: [{
+                                id: 'a',
+                                title: 'Auditorium A'
+                            }, {
+                                id: 'b',
+                                title: 'Auditorium B'
+                            }, {
+                                id: 'c',
+                                title: 'Auditorium C'
+                            }, {
+                                id: 'd',
+                                title: 'Auditorium D'
+                            }, {
+                                id: 'e',
+                                title: 'Auditorium E'
+                            }, {
+                                id: 'f',
+                                title: 'Auditorium F'
+                            }],
+                            noEventsMessage: "There are currently no events for the given time."
+                        });
+                    });
+                </script>
+
 </body>
 
 </html>

@@ -1,15 +1,15 @@
 var express = require('express');
+var bodyParser = require("body-parser");
+var firebase = require("firebase");
+var controller = require('./controller');
+
 var app = express();
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname));
 
-app.get('/', function(req, res) {
-    //console.log("ksdjaflsdk testing");
-    // res.render('ind.ejs');
+controller(app);
+
+app.listen(8037, function() {
+    console.log('App is live listening on port 8037!')
 });
-
-app.listen(8042);
-console.log('8042 is live')
-
-

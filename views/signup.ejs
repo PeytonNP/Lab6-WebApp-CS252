@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="login-container">
+            <div class="wrapper">
+                <form class="form-signin" method="post" action="/signup">
+                    <!--<div class="form-signin">-->
+                    <h2 class="form-signin-heading">Please Join Us</h2>
+                    <input type="text" class="form-control" id="firstname_txt" name="firstname" placeholder="First Name" required="" />
+                    <input type="text" class="form-control" id="lastname_txt" name="lastname" placeholder="Last Name" required="" />
+                    <input type="text" class="form-control" id="su_email_txt" name="su_email" placeholder="Email Address" required="" />
+                    <input type="password" class="form-control" id="su_password_txt" name="su_password" placeholder="Password" required="" />
+                    <input type="password" class="form-control" id="su_confirmpassword_txt" name="su_cpassword" placeholder="Confirm Password" required="" />
+                    <button class="btn btn-lg btn-primary btn-block" id="register_btn">Register</button>
+                    <!--</div>-->
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--<% include partials/firebase %>-->
+    <script src="../js/script.js"></script>
+</body>
+
+</html>
