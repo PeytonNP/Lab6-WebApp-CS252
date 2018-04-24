@@ -1,16 +1,20 @@
 $(document).ready(function() {
 
-
     ///index code
-    /*$("button").on("click", function() {
+
+    $("profile_body").ready(function() {
         $.ajax({
             type: 'GET',
-            url: '/',
+            url: '/profile_data',
             success: function(result) {
-                //$('#champ').html(result);
+                console.log(result);
+            },
+            error: function(textStatus, errorThrown) {
+                alert(result);
+                alert("result");
             }
         });
-    });*/
+    });
 
     $('#button').on('click', function() {
         $(".opacity-nav").fadeToggle("slow", "linear");
@@ -22,6 +26,49 @@ $(document).ready(function() {
         //$('#calendarModal').modal('toggle');
         $('#modal').modal('show');
     });
+
+    function loginUser(email, password) {
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then(function(firebaseUser) {
+                // Success
+                console.log("Success ");
+                //window.location = "../html/main.html"; // Redirecting to other page.
+            })
+            .catch(function(error) {
+                // Error Handling
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log('signIn error', error);
+            });
+    }
+
+    function logoutUser() {
+        firebase.auth().signOut().then(function() {
+            // Sign-out successful.
+            console.log("Sign-out successful");
+        }).catch(function(error) {
+            // An error happened.
+            console.log(error.message);
+            res.status(401).send(error.message);
+        });
+    }
+
+    function registarUser(firstname, lastname, email, password, cpassword) {
+
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(function(firebaseUser) {
+                // Success
+                console.log("Successful signUp");
+            })
+            .catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log('signUp error', error);
+            });
+    }
+
 
     function reserveRoom(obj) {
         var str = "Would you like to reserve room " + $(obj).attr("title") + "?";
