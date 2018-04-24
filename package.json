@@ -23,6 +23,9 @@
         "firebase": "^4.12.1",
         "mongoose": "^5.0.15"
     },
+    "engines": {
+        "node": "*" 
+    },
     "devDependencies": {
         "nodemon": "^1.17.3",
         "webpack": "^4.5.0",
