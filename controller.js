@@ -113,7 +113,7 @@ module.exports = function(app) {
             if (user) {
                 // User is signed in.
                 console.log("Currently logged in");
-                next();
+                //next();
             } else {
                 // No user is signed in.
                 console.log("Currently Not logged in");
