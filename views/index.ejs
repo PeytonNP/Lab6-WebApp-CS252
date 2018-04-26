@@ -41,8 +41,7 @@
                                     <input class="btn btn-dark" style="background-color:black; color:white;" type="submit" value="Create an Event" />
                                 </form>-->
 
-                                    <button id="reserveBtn" type="button" class="btn btn-dark" style="background-color:black; color:white;" data-toggle="modal"
-                                        data-target="#modal">Create an Event</button>
+                                    <button id="reserveBtn" type="button" class="btn btn-dark" style="background-color:black; color:white;" >Create an Event</button>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +98,7 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                                        <button class="btn btn-default" id="closeRes" type="button" >Cancel</button>
 
                                         <input class="btn btn-dark" style="background-color:black; color:white;" type="submit" value="Create an Event" />
                                     </div>
@@ -119,7 +118,7 @@
             <% include partials/footer %>
 
                 <!--Scripts-->
-                <script src="../js/jquery.min.js"></script>
+                <!--<script src="../js/jquery.min.js"></script>-->
                 <script src="../js/jquery.easing.min.js"></script>
                 <script src="../js/modernizr.custom.42534.js" type="text/javascript"></script>
                 <script src="../js/jquery.waitforimages.js" type="text/javascript"></script>
@@ -138,10 +137,29 @@
                     });
                 </script>
 
+                <!--Triggers the second modal that shows the form where users create events -->
                 <script>
-                    // script to trigger modal 
-                    $('#reserveBtn').click(function () {
-                        $('#modal').modal('show');
+                    $('#reserveBtn').click(function (event) {
+                        alert('reserveBtn clicked');   
+                        alert(event.target.id);            
+                        $("#calendarModal").hide();     // hides the first modal
+                        $('#modal').modal();            // shows the modal with the form
+                    });
+                </script>
+
+                <!--  Triggers the first modal with the default preview calendar-->
+                <script>
+                    $(".myMap").on("click", function (event) {
+                        alert(event.target.id);
+                        $("#calendarModal").modal();       // shows the modal with the form
+                    });
+                </script>
+
+                <script>
+                    $("#closeRes").on("click", function (event) {
+                        alert("closing modals");
+                        $("#modal").modal("hide");     // hides the second modal
+                        $("#calendarModal").modal("hide");     // hides the first modal
                     });
                 </script>
 

@@ -248,16 +248,6 @@ $(function () {
 
     // FUNCTIONS FOR READ ONLY CALENDAR (calendar that shows at index)
 
-
-    // Triggers hidden modal with default calendar
-    $('#calendarModal').on('shown.bs.modal', function (event) {
-        var triggerElement = $(event.relatedTarget);
-        var theIdYouWant = $(this).attr('id');
-        alert("adsfasdfsadf");
-        console.log(theIdYouWant + " <<<< found id");
-        alert(theIdYouWant + ' ...omg omg, look mom, I got the ID!!!!!! ');
-    });
-
     // DIV readOnlyCalendar
     $(document).ready(function () {
         alert("Hello! I am an alert box!!");
