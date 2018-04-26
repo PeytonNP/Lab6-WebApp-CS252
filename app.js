@@ -10,6 +10,7 @@ app.use(express.static(__dirname));
 
 controller(app);
 
-app.listen(8036, function() {
-    console.log('App is live listening on port 8036!')
+app.set('port', (process.env.PORT || 8036));
+app.listen(app.get('port'), function() {
+    console.log('App is live listening on port', app.get('port'))
 });

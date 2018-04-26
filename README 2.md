@@ -19,5 +19,3 @@
 - Hosting: Heroku or AWS
 - Design Template: https://html5up.net/
 - Feedback Mechanism: Google Forms or Typeform
-- FullCalendar API: https://fullcalendar.io/
-- Holidays from Google Calendar: 
