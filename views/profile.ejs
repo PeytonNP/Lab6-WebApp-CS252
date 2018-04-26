@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include partials/temhead %>
+</head>
+
+<body>
+    <% include partials/header %>
+        <div class="container-fluid">
+            <div class="login-container">
+                <div class="wrapper">
+                    <div align="middle">
+                            <p>NEED TO PULL INFORMATION FROM FIREBASE</p>
+                    </div>
+                    <div class="form-signin">
+
+                        <form method="post" action="/signout">
+                            <h2 class="form-signin-heading">Profile</h2>
+                            
+                            <br>
+                            <br>
+                            <table cellpadding="15"> <!-- CELL PADDING NOT APPLIED...CHECK CSS-->
+                                <tr>
+                                    <th>Name</th>
+                                    <td>Peyton Puckett</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>ppucket@purdue.edu</td>
+                                </tr>
+                                <tr>
+                                    <th>Reserved Rooms</th>
+                                    <td>Room 1: Date / duration</td>
+                                </tr>
+                                <tr>
+                                    <th>Account Type</th>
+                                    <td>Student / Faculty</td>
+                                </tr>
+                            </table>
+                            <br>
+                            <br>
+                            <br>
+                            <button class="btn btn-lg btn-primary btn-block" id="register_btn">LogOut</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Footer-->
+        <% include partials/footer %>
+
+            <script src="../js/script.js"></script>
+            
+            <!--Scripts-->
+            <script>
+                $('#button').on('click', function () {
+                    $(".opacity-nav").fadeToggle("slow", "linear");
+                    // Animation complete.
+                });
+            </script>
+            <script src="../js/jquery.min.js"></script>
+            <script src="../js/jquery.easing.min.js"></script>
+            <script src="../js/modernizr.custom.42534.js" type="text/javascript"></script>
+            <script src="../js/jquery.waitforimages.js" type="text/javascript"></script>
+            <script src="../js/typed.js" type="text/javascript"></script>
+            <script src="../js/masonry.pkgd.min.js" type="text/javascript"></script>
+            <script src="../js/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+            <script src="../js/jquery.jkit.1.2.16.min.js"></script>
+            <script src="../js/script.js" type="text/javascript"></script>
+            <script src='js/fullcalendar.min.js'></script>
+            <script src='js/scheduler.min.js'></script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+    <!--Header-->
+    <% include partials/header %>
+
+        <div class="container-fluid">
+            <div class="login-container">
+                <div class="wrapper">
+                    <form class="form-signin" method="post" action="/signup">
+                        <!--<div class="form-signin">-->
+                        <h2 class="form-signin-heading">Please Join Us</h2>
+                        <input type="text" class="form-control" id="firstname_txt" name="firstname" placeholder="First Name" required="" />
+                        <input type="text" class="form-control" id="lastname_txt" name="lastname" placeholder="Last Name" required="" />
+                        <input type="text" class="form-control" id="su_email_txt" name="su_email" placeholder="Email Address" required="" />
+                        <input type="password" class="form-control" id="su_password_txt" name="su_password" placeholder="Password" required="" />
+                        <input type="password" class="form-control" id="su_confirmpassword_txt" name="su_cpassword" placeholder="Confirm Password"
+                            required="" />
+                        <button class="btn btn-lg btn-primary btn-block" id="register_btn">Register</button>
+                        <!--</div>-->
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--Footer-->
+        <% include partials/footer %>
+            <!--<% include partials/firebase %>-->
+            <script src="../js/script.js"></script>
+            <!--Scripts-->
+            <script src="../js/jquery.min.js"></script>
+            <script src="../js/jquery.easing.min.js"></script>
+            <script src="../js/modernizr.custom.42534.js" type="text/javascript"></script>
+            <script src="../js/jquery.waitforimages.js" type="text/javascript"></script>
+            <script src="../js/typed.js" type="text/javascript"></script>
+            <script src="../js/masonry.pkgd.min.js" type="text/javascript"></script>
+            <script src="../js/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+            <script src="../js/jquery.jkit.1.2.16.min.js"></script>
+            <script src="../js/script.js" type="text/javascript"></script>
+            <script src='js/fullcalendar.min.js'></script>
+            <script src='js/scheduler.min.js'></script>
+
+            <script>
+                $('#button').on('click', function () {
+                    $(".opacity-nav").fadeToggle("slow", "linear");
+                    // Animation complete.
+                });
+            </script>
+</body>
+
+</html>

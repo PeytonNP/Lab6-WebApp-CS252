@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <% include partials/temhead %>
+</head>
+
+<body>
+    <!--Header-->
+    <% include partials/header %>
+        <div class="clear"></div>
+
+        <!--Content-->
+        <div class="content" id="ajax-content">
+            <div class="text-intro" id="site-type">
+            </div>
+        </div>
+
+       <!-- <div align="middle">
+            <button id="btn" data-toggle="modal" data-target="#modal">Button</button>
+        </div>
+        <br>
+
+        <div id="dialog">
+            <input type="text" id="input1" />
+            <input type="text" id="input2" />
+        </div>
+    -->
+
+        <div align="middle" style="width:75%; margin: 0 auto;">
+            <div id='calendar'>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div id='calendar2'>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div id='readOnlyCalendar'>
+            </div>
+        </div>
+
+
+        <div id="modal" class="modal">
+            <div class="modal-dialog animated">
+                <div class="modal-content">
+                    <form class="form-horizontal" method="get">
+                        <div class="modal-header">
+                            <strong>Create an Event</strong>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="eventTitle" class="control-label col-xs-4">Event Title</label>
+                                <div class="input-group col-xs-7">
+                                    <input type="text" name="eventTitle" id="eventTitle" class="form-control" />
+                                </div>
+                                <br>
+                                <label for="eventDescription" class="control-label col-xs-4">Description</label>
+                                <div class="input-group col-xs-7">
+                                    <input type="text" name="eventDescription" id="eventDescription" class="form-control" />
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                            <button class="btn btn-primary" type="submit" onclick="modal.close();">Create Event</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="ajax-sidebar">
+        </div>
+
+        <!--Footer-->
+        <% include partials/footer %>
+
+            <!--Scripts-->
+            <script src="js/jquery.min.js"></script>
+            <script src="js/jquery.easing.min.js"></script>
+            <script src="js/modernizr.custom.42534.js" type="text/javascript"></script>
+            <script src="js/jquery.waitforimages.js" type="text/javascript"></script>
+            <script src="js/typed.js" type="text/javascript"></script>
+            <script src="js/masonry.pkgd.min.js" type="text/javascript"></script>
+            <script src="js/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+            <script src="js/jquery.jkit.1.2.16.min.js"></script>
+            <script src="js/popper.min.js"></script>
+            <script src="js/script.js" type="text/javascript"></script>
+            <script src='js/fullcalendar.min.js'></script>
+            <script src='js/scheduler.min.js'></script>
+            
+
+            <script>
+                $('#button').on('click', function() {
+                    $(".opacity-nav").fadeToggle("slow", "linear");
+                    // Animation complete.
+                });
+            </script>
+
+            <script type="text/javascript">
+                // Old script that makes popup and redirects to account page
+                function reserveRoom(obj) {
+                    var str = "Would you like to reserve room " + $(obj).attr("title") + "?";
+                    if (confirm(str)) {
+                        document.location.href = "account.html";
+                    } else {
+                        return false;
+                    }
+                };
+            </script>
+
+            <script>
+                // script to trigger modal 
+                $('#btn').click(function() {
+                    $('#modal').modal('show');
+                });
+            </script>
+
+            <script>
+                // script to test fullCalendar
+                $(document).ready(function() {
+                    $('#calendar').fullCalendar({
+                        schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+                        eventLimit: true,
+                        header: {
+                            left: 'month,agendaWeek,agendaDay addEvent',
+                            center: 'title',
+                            right: 'prev  today next'
+                        },
+                        views: {
+                            listDay: {
+                                buttonText: "Events Today"
+                            },
+                            listWeek: {
+                                buttonText: "Events this Week"
+                            },
+                            listMonth: {
+                                buttonText: "Events this Month"
+                            }
+                        },
+                        businessHours: { // adds shading for business hours M-F 7:30-5:00pm
+                            start: '7:30',
+                            end: '17:00'
+                        },
+                        nowIndicator: true,
+                        selectable: true,
+                        editable: false, // set master edit to be false (use cannot edit events already in db)
+                        select: function(eventObj) {
+                            $('#dialog').dialog('open');
+                        },
+                        /*eventClick: function (eventObj) {
+                          if (eventObj.url) {
+                            alert(
+                              'Opening ' + eventObj.url + ' in a new tab'
+                            );
+                            window.open(eventObj.url);
+
+                            return false; // prevents browser from following link in current tab.
+                          } else {
+                            alert('Event ' + eventObj.title + ": " + eventObj.description);
+                          }
+                        },*/
+                        googleCalendarApiKey: 'AIzaSyDsH-NZ4FqEFb_s7HaoBXkRyVx-g2HCpss',
+                        events: {
+                            googleCalendarId: '130e63e17r6pi9805unrea5c2s@group.calendar.google.com'
+                        },
+                        events: 'en.usa#holiday@group.v.calendar.google.com',
+                        events: [{
+                            title: 'All Day Event',
+                            start: '2018-04-01',
+                            description: 'Event Notes',
+                            color: 'red'
+                        }, {
+                            title: 'Conference',
+                            start: '2018-04-11',
+                            description: 'Event Notes',
+                            end: '2018-04-13',
+                            color: 'green'
+                        }, {
+                            title: 'Meeting',
+                            start: '2018-04-12T10:30:00',
+                            description: 'Event Notes',
+                            end: '2018-04-12T12:30:00',
+                            color: 'black',
+                            editable: true // user can edit this event (user events are editable)
+                        }, {
+                            title: 'Click for Google',
+                            url: 'http://google.com/',
+                            description: 'Event Notes',
+                            start: '2018-04-28',
+                            color: 'blue',
+                            editable: true // user can edit this event (user events are editable)
+                        }],
+
+                        /*customButtons: {
+                          addEvent: {
+                            text: 'New Event',
+                            click: function (event) {
+                              $("#modal").modal('show');
+
+                              var dateStr = prompt('Enter a date in YYYY-MM-DD format');
+                              var date = moment(dateStr);
+                              if (date.isValid()) {
+                                $('#calendar').fullCalendar('renderEvent', {
+                                  start: date,
+                                  allDay: true
+                                });
+                                alert('Great. Now, update your database...');
+                              } else {
+                                alert('Invalid date.');
+                              }
+                            }
+                          }
+                        }*/
+                    });
+                });
+            </script>
+
+
+            <script>
+                // Tests calendar in agenda view (possible read only view for users)
+                $(document).ready(function() {
+                    $('#calendar2').fullCalendar({
+                        defaultView: 'timelineDay',
+                        schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+                        selectable: true,
+                        header: {
+                            left: 'promptResource today prev,next',
+                            center: 'title',
+                            right: 'timelineDay,timelineWeek,timelineMonth'
+                        },
+                        customButtons: {
+                            promptResource: {
+                                text: '+Room',
+                                click: function() {
+                                    var str = prompt('Enter room name in the format "Building,Room" (no spaces)');
+                                    var arr = str.split(",");
+                                    if (arr.length >= 2) {
+                                        $('#calendar2').fullCalendar(
+                                            'addResource', {
+                                                title: arr[1],
+                                                building: arr[0]
+                                            },
+                                            true // scroll to the new resource?
+                                        );
+                                    }
+                                }
+                            }
+                        },
+                        resourceLabelText: 'Rooms Available',
+                        resourceColumns: [{
+                            group: true,
+                            labelText: 'Location',
+                            field: 'building'
+                        }, {
+                            labelText: 'Room',
+                            field: 'title'
+                        }, {
+                            labelText: 'Info',
+                            field: 'description'
+                        }],
+                        resources: [{
+                            id: 'a',
+                            building: 'Lawson-B',
+                            title: 'A',
+                            description: 'lab'
+                        }, {
+                            id: 'b',
+                            building: 'Lawson-B',
+                            title: 'B',
+                            description: 'lab'
+                        }, {
+                            id: 'c',
+                            building: 'Lawson-B',
+                            title: 'C',
+                            description: 'lab'
+                        }, {
+                            id: 'd',
+                            building: 'Lawson-M',
+                            title: 'D',
+                            description: 'lab'
+                        }, {
+                            id: 'e',
+                            building: 'Lawson-M',
+                            title: 'E',
+                            description: 'lab'
+                        }, {
+                            id: 'f',
+                            building: 'Lawson-M',
+                            title: 'F',
+                            description: 'lab'
+                        }],
+                        /*dayClick: function (date, jsEvent, view, resource) {
+                            alert('Confirm reservation for  ' + date.format() + ' at ' + resource.id + '?');
+                          },*/
+                        select: function(startDate, endDate, jsEvent, view, resource) {
+                            alert('Confirm reservation for  ' + startDate.format() + ' to ' + endDate.format() + ' at ' + resource.id + '?');
+                        },
+                    });
+                });
+            </script>
+
+            <script>
+                // List view (possible read only view for users) readOnlyCalendar
+                $(document).ready(function() {
+                    $('#readOnlyCalendar').fullCalendar({
+                        schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+                        views: {
+                            listDay: {
+                                buttonText: "Events Today"
+                            },
+                            listWeek: {
+                                buttonText: "Events this Week"
+                            },
+                            listMonth: {
+                                buttonText: "Events this Month"
+                            }
+                        },
+                        header: {
+                            left: 'prev today next',
+                            center: 'title',
+                            right: 'listDay,listWeek,listMonth'
+                        },
+                        defaultView: "listWeek",
+                        resourceLabelText: 'Rooms Available',
+                        events: [{
+                            title: 'All Day Event',
+                            start: '2018-04-01',
+                            description: 'Event Notes',
+                            color: 'red'
+                        }, {
+                            title: 'Conference',
+                            start: '2018-04-11',
+                            description: 'Event Notes',
+                            end: '2018-04-13',
+                            color: 'green'
+                        }, {
+                            title: 'Meeting',
+                            start: '2018-04-12T10:30:00',
+                            description: 'Event Notes',
+                            end: '2018-04-12T12:30:00',
+                            color: 'black',
+                            editable: true // user can edit this event (user events are editable)
+                        }, {
+                            title: 'Click for Google',
+                            url: 'http://google.com/',
+                            description: 'Event Notes',
+                            start: '2018-04-28',
+                            color: 'blue',
+                            editable: true // user can edit this event (user events are editable)
+                        }],
+                        resources: [{
+                            id: 'a',
+                            title: 'Auditorium A'
+                        }, {
+                            id: 'b',
+                            title: 'Auditorium B'
+                        }, {
+                            id: 'c',
+                            title: 'Auditorium C'
+                        }, {
+                            id: 'd',
+                            title: 'Auditorium D'
+                        }, {
+                            id: 'e',
+                            title: 'Auditorium E'
+                        }, {
+                            id: 'f',
+                            title: 'Auditorium F'
+                        }],
+                        noEventsMessage: "There are currently no events for the given time."
+                    });
+                });
+            </script>
+
+</body>
+
+</html>
