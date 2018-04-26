@@ -250,8 +250,12 @@ $(function () {
 
 
     // Triggers hidden modal with default calendar
-    $('#calendarModal').on('show.bs.modal', function (event) {
+    $('#calendarModal').on('shown.bs.modal', function (event) {
         var triggerElement = $(event.relatedTarget);
+        var theIdYouWant = $(this).attr('id');
+        alert("adsfasdfsadf");
+        console.log(theIdYouWant + " <<<< found id");
+        alert(theIdYouWant + ' ...omg omg, look mom, I got the ID!!!!!! ');
     });
 
     // DIV readOnlyCalendar

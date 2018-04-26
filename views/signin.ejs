@@ -11,19 +11,21 @@
             <div class="login-container">
                 <div class="wrapper">
                     <div class="form-signin">
-                            <form  method="post" action="/signin">
-                                <h2 class="form-signin-heading">Please login</h2>
-                                <div class="avatar"> </div>
-                                <input type="text" class="form-control" id="si_email_txt" name="si_email" placeholder="Email Address" required="" autofocus=""
-                                />
-                                <input type="password" class="form-control" id="si_password_txt" name="si_password" placeholder="Password" required="" />
-                                <label class="checkbox">
-                                    <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
-                                </label>
-                                <button class="btn btn-lg btn-primary btn-block" id="login_btn">Login</button>
-                            </form>
-                            <br>
-                            <a href="/signup"><button  class="btn btn-lg btn-primary btn-block" id="signup_btn">Create Account</button></a>
+                        <form method="post" action="/signin">
+                            <h2 class="form-signin-heading">Please login</h2>
+                            <div class="avatar"> </div>
+                            <input type="text" class="form-control" id="si_email_txt" name="si_email" placeholder="Email Address" required="" autofocus=""
+                            />
+                            <input type="password" class="form-control" id="si_password_txt" name="si_password" placeholder="Password" required="" />
+                            <label class="checkbox">
+                                <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
+                            </label>
+                            <button class="btn btn-lg btn-primary btn-block" id="login_btn">Login</button>
+                        </form>
+                        <br>
+                        <a href="/signup">
+                            <button class="btn btn-lg btn-primary btn-block" id="signup_btn">Create Account</button>
+                        </a>
                     </div>
                 </div>
             </div>

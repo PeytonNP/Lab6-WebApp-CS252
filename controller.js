@@ -31,13 +31,6 @@ module.exports = function(app) {
         owner: String
     });
 
-
-    ///var db_users = mongoose.model('User', userSchema);
-
-    //var db_users = mongoose.model('User', userSchema);
-    //var db_users = mongoose.model('User', userSchema);
-
-
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
         extended: true
@@ -139,6 +132,33 @@ module.exports = function(app) {
             });
     }
 
+    app.post('/createUserEvent', function(req, res) {
+        console.log('called createUserEvent');
+        var userRef = database.ref('/users');
+
+        var newRoomName = req.body.roomname;
+        var currUser = req.body.userAuth;
+        var newEventTitle = req.body.eventTitle;
+        var newEventDescription = req.body.eventDescription;
+        var newEventDate = req.body.eventDate;
+        var newEventStart = req.body.startTime;
+        var newEventEnd = req.body.endTime;
+
+        console.log(newRoomName);
+        console.log(currUser)
+        console.log(newEventTitle);
+        console.log(newEventDescription);
+        console.log(newEventDate);
+        console.log(newEventStart);
+        console.log(newEventEnd);
+
+        return userRef.push('testing adding to firebase');
+    });
+
+
+    function createRoomEvent() { // creates event and adds it to the rooms info in firebase
+        var roomRef = database.ref('/rooms');
+    }
 
 
     app.get('/', function(req, res) {

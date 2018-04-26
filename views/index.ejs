@@ -52,7 +52,7 @@
                     <div id="modal" class="modal">
                         <div class="modal-dialog animated">
                             <div class="modal-content">
-                                <form class="form-horizontal" action="/profile">
+                                <form class="form-horizontal" method="POST" action="/createUserEvent">
                                     <!-- TODO change from action to get request when interacting with db-->
                                     <div class="modal-header">
                                         <strong>Create an Event</strong>
@@ -62,12 +62,12 @@
                                         <div class="form-group">
                                             <label for="roomname" class="control-label col-xs-4">Room</label>
                                             <div class="input-group col-xs-7">
-                                                <input type="text" name="roomname" id="roomname" value="GET EJS VAR FOR ROOM NAME" class="form-control" readonly/>
+                                                <input type="text" name="roomname" id="roomname" value="GET ROOM NAME" class="form-control" readonly/>
                                             </div>
                                             <br>
-                                            <label for="roomname" class="control-label col-xs-4">User</label>
+                                            <label for="userAuth" class="control-label col-xs-4">User</label>
                                             <div class="input-group col-xs-7">
-                                                <input type="text" name="roomname" id="roomname" value="CURRENTLY AUTHENTICATED USER" class="form-control" readonly/>
+                                                <input type="text" name="userAuth" id="userAuth" value="GET CURRENTLY AUTHENTICATED USER" class="form-control" readonly/>
                                             </div>
                                             <br>
                                             <label for="eventTitle" class="control-label col-xs-4">Event Title</label>
@@ -80,9 +80,9 @@
                                                 <input type="text" name="eventDescription" id="eventDescription" class="form-control" />
                                             </div>
                                             <br>
-                                            <label for="date" class="control-label col-xs-4">Date</label>
+                                            <label for="eventDate" class="control-label col-xs-4">Date</label>
                                             <div class="input-group col-xs-7">
-                                                <input type="date" name="date" id="date" class="form-control" />
+                                                <input type="date" name="eventDate" id="eventDate" class="form-control" />
                                             </div>
                                             <br>
                                             <label for="startTime" class="control-label col-xs-4">Start Time</label>
@@ -100,6 +100,7 @@
 
                                     <div class="modal-footer">
                                         <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+
                                         <input class="btn btn-dark" style="background-color:black; color:white;" type="submit" value="Create an Event" />
                                     </div>
                                 </form>
@@ -144,17 +145,6 @@
                     });
                 </script>
 
-                <script type="text/javascript">
-                    // Old script that makes popup and redirects to account page
-                    function reserveRoom(obj) {
-                        var str = "Would you like to reserve room " + $(obj).attr("title") + "?";
-                        if (confirm(str)) {
-                            document.location.href = "account.html";
-                        } else {
-                            return false;
-                        }
-                    };
-                </script>
 
                 <!-- Moved to script.js file-->
                 <!--<script>
