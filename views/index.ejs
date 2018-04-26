@@ -41,7 +41,7 @@
                                     <input class="btn btn-dark" style="background-color:black; color:white;" type="submit" value="Create an Event" />
                                 </form>-->
 
-                                    <button id="reserveBtn" type="button" class="btn btn-dark" style="background-color:black; color:white;" >Create an Event</button>
+                                    <button id="reserveBtn" type="button" class="btn btn-dark" style="background-color:black; color:white;">Create an Event</button>
                                 </div>
                             </div>
                         </div>
@@ -61,12 +61,12 @@
                                         <div class="form-group">
                                             <label for="roomname" class="control-label col-xs-4">Room</label>
                                             <div class="input-group col-xs-7">
-                                                <input type="text" name="roomname" id="roomname" value="GET ROOM NAME" class="form-control" readonly/>
+                                                <input type="text" name="roomname" id="roomname" value="CURRENT ROOM NAME" class="form-control" readonly/>
                                             </div>
                                             <br>
                                             <label for="userAuth" class="control-label col-xs-4">User</label>
                                             <div class="input-group col-xs-7">
-                                                <input type="text" name="userAuth" id="userAuth" value="GET CURRENTLY AUTHENTICATED USER" class="form-control" readonly/>
+                                                <input type="text" name="userAuth" id="userAuth" value="CURRENTLY AUTHENTICATED USER" class="form-control" readonly/>
                                             </div>
                                             <br>
                                             <label for="eventTitle" class="control-label col-xs-4">Event Title</label>
@@ -98,7 +98,7 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <button class="btn btn-default" id="closeRes" type="button" >Cancel</button>
+                                        <button class="btn btn-default" id="closeRes" type="button">Cancel</button>
 
                                         <input class="btn btn-dark" style="background-color:black; color:white;" type="submit" value="Create an Event" />
                                     </div>
@@ -140,8 +140,8 @@
                 <!--Triggers the second modal that shows the form where users create events -->
                 <script>
                     $('#reserveBtn').click(function (event) {
-                        alert('reserveBtn clicked');   
-                        alert(event.target.id);            
+                        // alert('reserveBtn clicked');
+                        // alert(event.target.id);
                         $("#calendarModal").hide();     // hides the first modal
                         $('#modal').modal();            // shows the modal with the form
                     });
@@ -150,14 +150,18 @@
                 <!--  Triggers the first modal with the default preview calendar-->
                 <script>
                     $(".myMap").on("click", function (event) {
-                        alert(event.target.id);
-                        $("#calendarModal").modal();       // shows the modal with the form
+                        // alert(event.target.id);
+                        $("#calendarModal").modal();                            // shows the modal with the form
+                        var roomTxtValue = document.getElementById('roomname'); // get and set the roomname to the button that was clicked
+                        roomTxtValue.value = event.target.id;   
+                        var userTxtValue = document.getElementById('userAuth'); // get and set the username 
+                        //userTxtValue.value = event.target.id;
                     });
                 </script>
 
                 <script>
                     $("#closeRes").on("click", function (event) {
-                        alert("closing modals");
+                        // alert("closing modals");
                         $("#modal").modal("hide");     // hides the second modal
                         $("#calendarModal").modal("hide");     // hides the first modal
                     });
