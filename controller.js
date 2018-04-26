@@ -1,10 +1,10 @@
-module.exports = function(app) {
+module.exports = function (app) {
 
     var firebase = require("firebase");
     var bodyParser = require("body-parser"); //Import bodyParser so we can read request body data
 
     var mongoose = require('mongoose');
-  
+
     //mongoose.connect('mongodb://abah:abah@ds247619.mlab.com:47619/lswpmap');
 
     //mongoose.connect(keys.mongodb.dbURI);
@@ -53,7 +53,7 @@ module.exports = function(app) {
 
         var user = req.body;
         console.log("Fetched user : ", user);
-        firebase.auth().onAuthStateChanged(function(user) {
+        firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 // User is signed in.
                 var displayName = user.displayName;
@@ -77,12 +77,12 @@ module.exports = function(app) {
     function loginUser(email, password) {
 
         firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(function(firebaseUser) {
+            .then(function (firebaseUser) {
                 // Success
                 console.log("Success ");
                 //window.location = "../html/main.html"; // Redirecting to other page.
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 // Error Handling
                 var errorCode = error.code;
                 var errorMessage = error.message;
@@ -91,10 +91,10 @@ module.exports = function(app) {
     }
 
     function logoutUser() {
-        firebase.auth().signOut().then(function() {
+        firebase.auth().signOut().then(function () {
             // Sign-out successful.
             console.log("Sign-out successful");
-        }).catch(function(error) {
+        }).catch(function (error) {
             // An error happened.
             console.log(error.message);
             res.status(401).send(error.message);
@@ -102,7 +102,7 @@ module.exports = function(app) {
     }
 
     function authUser() {
-        firebase.auth().onAuthStateChanged(function(user) {
+        firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 // User is signed in.
                 console.log("Currently logged in");
@@ -120,11 +120,11 @@ module.exports = function(app) {
     function registarUser(firstname, lastname, email, password, cpassword) {
 
         firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(function(firebaseUser) {
+            .then(function (firebaseUser) {
                 // Success
                 console.log("Successful signUp");
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
@@ -132,10 +132,10 @@ module.exports = function(app) {
             });
     }
 
-    app.post('/createUserEvent', function(req, res) {
+    app.post('/createUserEvent', function (req, res) {
         console.log('called createUserEvent');
-        var userRef = database.ref('/users');
 
+        // Gets the fields from the form
         var newRoomName = req.body.roomname;
         var currUser = req.body.userAuth;
         var newEventTitle = req.body.eventTitle;
@@ -144,13 +144,41 @@ module.exports = function(app) {
         var newEventStart = req.body.startTime;
         var newEventEnd = req.body.endTime;
 
-        console.log(newRoomName);
-        console.log(currUser)
-        console.log(newEventTitle);
-        console.log(newEventDescription);
-        console.log(newEventDate);
-        console.log(newEventStart);
-        console.log(newEventEnd);
+        // Database refs
+        var userRef = database.ref('/users');
+        var roomsRef = database.ref('/rooms');
+        var currRoomRef = database.ref('/rooms/' + newRoomName + '/events');
+        var eventId = newRoomName + newEventTitle;
+        console.log(eventId);
+        //console.log(currRoomRef);
+
+        currRoomRef.child(eventId).set({
+                eventUser: currUser,
+                title: newEventTitle,
+                description: newEventDescription,
+                date: newEventDate,
+                start: newEventStart, 
+                end: newEventEnd
+        });
+
+        // Printing fields
+        console.log("Room name: " + newRoomName);
+        console.log("Current User: " + currUser)
+        console.log("Event Title: " + newEventTitle);
+        console.log("Event Description: " + newEventDescription);
+        console.log("Event Date: " + newEventDate);
+        console.log("Event Start time: " + newEventStart);
+        console.log("Event End Time: " + newEventEnd);
+
+
+        if (currUser === "") {                      // check if currUser field exists
+            console.log("currUserVarEmpty");
+        }
+        else {
+            console.log("user var has some value");
+        }
+
+        res.render('signin.ejs');
 
         return userRef.push('testing adding to firebase');
     });
@@ -161,26 +189,26 @@ module.exports = function(app) {
     }
 
 
-    app.get('/', function(req, res) {
+    app.get('/', function (req, res) {
         console.log("Am in get /")
         res.render('index.ejs');
     });
-    
 
-    app.get('/signin', function(req, res) {
+
+    app.get('/signin', function (req, res) {
         console.log("Am in get /signin")
         res.render('signin.ejs');
     });
 
-    app.get('/signup', function(req, res) {
+    app.get('/signup', function (req, res) {
         console.log("Am in get /signup")
         res.render('signup.ejs');
     });
 
-    app.get('/profile', function(req, res) {
+    app.get('/profile', function (req, res) {
         console.log("Am in get /profile")
-            //res.render('profile.ejs');
-        firebase.auth().onAuthStateChanged(function(user) {
+        //res.render('profile.ejs');
+        firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 // User is signed in.
                 console.log("Currently logged in");
@@ -194,17 +222,17 @@ module.exports = function(app) {
     });
 
 
-    app.get('/calendar', function(req, res) {
+    app.get('/calendar', function (req, res) {
         console.log("Am in get /calendar")
         res.render('calendar.ejs');
     });
 
-    app.get('/feedback', function(req, res) {
+    app.get('/feedback', function (req, res) {
         console.log("Am in get /feedback")
         res.render('feedback.ejs');
     });
 
-    app.post('/signin', function(req, res) {
+    app.post('/signin', function (req, res) {
         console.log("Am in Post /signin")
 
         var email = req.body.si_email;
@@ -217,12 +245,13 @@ module.exports = function(app) {
         });*/
 
         firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(function(firebaseUser) {
+            .then(function (firebaseUser) {
                 // Success
                 console.log("Success ");
+                //console.log(user);
                 res.render('profile.ejs');
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 // Error Handling
                 var errorCode = error.code;
                 var errorMessage = error.message;
@@ -233,7 +262,7 @@ module.exports = function(app) {
             });
     });
 
-    app.post('/signup', function(req, res) {
+    app.post('/signup', function (req, res) {
         console.log("Am in Post /signup")
 
         var firstname = req.body.firstname;
@@ -243,18 +272,18 @@ module.exports = function(app) {
         var cpassword = req.body.su_cpassword;
 
         registarUser(firstname, lastname, email, password, cpassword)
-            //res.render('signin.ejs');
+        //res.render('signin.ejs');
         res.json({
             message: "Sucessful Sign In"
         });;
     });
 
-    app.post('/profile', function(req, res) {
+    app.post('/profile', function (req, res) {
         console.log("Am in Post /profile")
     });
 
 
-    app.post('/signout', function(req, res) {
+    app.post('/signout', function (req, res) {
         console.log("Am in Post /signout")
 
         //loginUser(email, password)
@@ -262,31 +291,15 @@ module.exports = function(app) {
         /*res.json({
             message: "Sucessful Sign out"
         });*/
-        firebase.auth().signOut().then(function() {
+        firebase.auth().signOut().then(function () {
             // Sign-out successful.
             console.log("Sign-out successful");
             res.render('signin.ejs');
-        }).catch(function(error) {
+        }).catch(function (error) {
             // An error happened.
             console.log(error.message);
             res.status(401).send(error.message);
         });
     });
-    /*db_users.find({ username: 'abah', password: 'abah' }, function(err, data) {
-        if (err) throw err;
-    });
-    
-    var newPost = db_posts({
-            username: "abah",
-            password: "abah",
-            address: "mememe",
-            phone: "9090933020",
-            dod: "06/06/06"
-        }).save(function(err, data) {
-            if (err) throw err;
-            console.log("save success");
-            res.json(data);
-        });
-    */
 
 }
