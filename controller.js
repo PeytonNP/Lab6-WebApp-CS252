@@ -3,25 +3,6 @@ module.exports = function(app) {
     var firebase = require("firebase");
     var bodyParser = require("body-parser"); //Import bodyParser so we can read request body data
 
-    var mongoose = require('mongoose');
-    mongoose.connect('mongodb://abah:abah@ds247619.mlab.com:47619/lswpmap');
-    //mongoose.connect(keys.mongodb.dbURI);
-
-    var rooma = new mongoose.Schema({
-        roomname: String,
-        editable: Boolean,
-        owner: String,
-        events: [{
-            title: String,
-            start: String,
-            description: String,
-            color: String
-        }, ]
-    });
-
-    var db_room = mongoose.model('Room', rooma);
-    //var db_users = mongoose.model('User', userSchema);
-    //var db_users = mongoose.model('User', userSchema);
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
@@ -43,20 +24,6 @@ module.exports = function(app) {
     var usersRef = database.ref('users');
     var roomsRef = database.ref('rooms');
     var roomRef = roomsRef.child('rooms');
-
-    function Person(user, first, last, age, events) {
-        this.user = user;
-        this.firstName = first;
-        this.lastName = last;
-        this.events = events;
-    }
-
-    function Person(user, first, last, age, events) {
-        this.user = user;
-        this.firstName = first;
-        this.lastName = last;
-        this.events = events;
-    }
 
     function snapshotToArray(snapshot) {
         var returnArr = [];
@@ -97,7 +64,7 @@ module.exports = function(app) {
         console.log("Am in get /signup")
         res.render('signup.ejs');
     });
-    app.get('/profile_data', function(req, res) {
+    /*app.get('/profile_data', function(req, res) {
         console.log("In profile_data")
         roomsRef.on("value", function(snapshot) {
 
@@ -109,9 +76,9 @@ module.exports = function(app) {
             console.log("The read failed: " + errorObject.code);
         });
 
-    });
+    });*/
 
-    app.get('/profile', function(req, res) {
+    /*app.get('/profile', function(req, res) {
         console.log("Am in get /profile")
             //res.render('profile');
         firebase.auth().onAuthStateChanged(function(user) {
@@ -125,6 +92,16 @@ module.exports = function(app) {
                 res.redirect('signin');
             }
         });
+    });*/
+    app.get('/profile', function(req, res) {
+        console.log("Am in get /profile")
+        res.render('profile');
+    });
+    app.post('/profile', function(req, res) {
+        console.log("Am in Post /profile")
+        var auth = req.body.auth;
+        console.log(auth);
+        res.render('profile');
     });
 
     app.get('/calender', function(req, res) {
@@ -139,16 +116,6 @@ module.exports = function(app) {
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
-        console.log("");
-        console.log("");
-
-        //console.log(B160);
-        /*db_room.find({ roomname: 'B160', owner: 'B17760', }, function(err, data) {
-            console.log(data.roomname);
-            res.render('calender', { posts: data });
-            if (err) throw err;
-        });*/
-        //res.render('calender', { posts: B160 });
     });
     app.get('/feedback', function(req, res) {
         console.log("Am in get /feedback")
@@ -158,14 +125,19 @@ module.exports = function(app) {
     app.post('/signin', function(req, res) {
         console.log("Am in Post /signin")
 
-        var email = req.body.si_email;
-        var password = req.body.si_password;
+        var email = req.body.email;
+        var password = req.body.password;
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
+        /*firebase.auth().signInWithEmailAndPassword(email, password)
             .then(function(firebaseUser) {
                 // Success
-                console.log("Success ");
-                res.redirect('profile');
+                var user = firebase.auth().currentUser;
+                console.log("Success");
+                res.json({
+                    success: true,
+                    message: "Success",
+                    user: user.uid
+                });
             })
             .catch(function(error) {
                 // Error Handling
@@ -173,30 +145,73 @@ module.exports = function(app) {
                 var errorMessage = error.message;
                 console.log('signIn error', errorMessage);
                 res.json({
-                    message: errorMessage
+                    success: false,
+                    message: errorMessage,
+                    user: ""
                 });
-            });
+            });*/
     });
 
     app.post('/signup', function(req, res) {
         console.log("Am in Post /signup")
 
+        var email = req.body.email;
+        var password = req.body.password;
         var firstname = req.body.firstname;
         var lastname = req.body.lastname;
-        var email = req.body.su_email;
-        var password = req.body.su_password;
-        var cpassword = req.body.su_cpassword;
+        var email = req.body.email;
+        var password = req.body.password;
+        var events = req.body.events;
 
-        registarUser(firstname, lastname, email, password, cpassword)
-            //res.render('signin.ejs');
-        res.json({
-            message: "Sucessful Sign In"
-        });;
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(function(firebaseUser) {
+                //Success
+                console.log("signUp Successful!");
+                //loginUser(email, password);
+                firebase.auth().signInWithEmailAndPassword(email, password)
+                    .then(function(firebaseUser) {
+                        // Success
+                        console.log(" login Success ");
+                        var user = firebase.auth().currentUser;
+                        console.log("Success");
+                        var userObject = {
+                            email: email,
+                            firstname: firstname,
+                            userID: user.uid,
+                            events: events
+                        }
+                        usersRef.push(userObject);
+                        res.json({
+                            success: true,
+                            message: "Success",
+                            user: user.uid
+                        });
+                    })
+                    .catch(function(error) {
+                        // Error Handling
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.log('signIn error', error);
+                        res.json({
+                            success: false,
+                            message: errorMessage,
+                            user: ""
+                        });
+                    });
+            })
+            .catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log('signUp error', error);
+                res.json({
+                    success: false,
+                    message: errorMessage,
+                    user: ""
+                });
+            });
     });
 
-    app.post('/profile', function(req, res) {
-        console.log("Am in Post /profile")
-    });
 
     app.post('/signout', function(req, res) {
         console.log("Am in Post /signout")

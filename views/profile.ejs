@@ -5,15 +5,16 @@
     <% include partials/temhead %>
 </head>
 
-<body id="profile_body">
-    <% include partials/header %>
-        <!--Content-->
-        <div class="content" id="ajax-content">
-            <div class="text-intro" id="site-type">
+<body>
+    <div id="blanket">
+        <% include partials/header %>
+            <!--Content-->
+            <div class="content" id="ajax-content">
+                <div class="text-intro" id="site-type">
+                </div>
             </div>
-        </div>
-        <div class="form-signin">
-            <form method="post" action="/signout">
+            <div class="form-signin">
+                <!--<form method="post" action="/signout">-->
                 <h2 class="form-signin-heading">Profile</h2>
                 <div class="avatar"> </div>
                 <br><br>
@@ -37,33 +38,34 @@
                 </table>
                 <br><br><br>
                 <button class="btn btn-lg btn-primary btn-block" id="logOut_btn">LogOut</button>
-            </form>
-        </div>
-        <br><br><br>
-
-        <div align="middle" style="width:75%; margin: 0 auto;">
-            <div id='calendar'>
+                <!--</form>-->
             </div>
             <br><br><br>
-            <br><br><br>
-        </div>
-        <!--<script src="../js/script.js"></script>
+
+            <div align="middle" style="width:75%; margin: 0 auto;">
+                <div id='readOnlyCalendar'>
+                </div>
+                <br><br><br>
+                <br><br><br>
+            </div>
+            <!--<script src="../js/script.js"></script>
     <script src='../js/ms.js'></script>-->
-        <!--Footer-->
-        <% include partials/footer %>
-            <!--Scripts-->
-            <script src="../js/jquery.min.js"></script>
-            <script src="../js/jquery.easing.min.js"></script>
-            <script src="../js/modernizr.custom.42534.js" type="text/javascript"></script>
-            <script src="../js/jquery.waitforimages.js" type="text/javascript"></script>
-            <script src="../js/typed.js" type="text/javascript"></script>
-            <script src="../js/masonry.pkgd.min.js" type="text/javascript"></script>
-            <script src="../js/imagesloaded.pkgd.min.js" type="text/javascript"></script>
-            <script src="../js/jquery.jkit.1.2.16.min.js"></script>
-            <script src="../js/script.js" type="text/javascript"></script>
-            <script src='../js/fullcalendar.min.js'></script>
-            <script src='../js/scheduler.min.js'></script>
-            <script src='../js/ms.js'></script>
+            <!--Footer-->
+            <% include partials/footer %>
+                <!--Scripts-->
+                <script src="../js/jquery.min.js"></script>
+                <script src="../js/jquery.easing.min.js"></script>
+                <script src="../js/modernizr.custom.42534.js" type="text/javascript"></script>
+                <script src="../js/jquery.waitforimages.js" type="text/javascript"></script>
+                <script src="../js/typed.js" type="text/javascript"></script>
+                <script src="../js/masonry.pkgd.min.js" type="text/javascript"></script>
+                <script src="../js/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+                <script src="../js/jquery.jkit.1.2.16.min.js"></script>
+                <script src="../js/script.js" type="text/javascript"></script>
+                <script src='../js/fullcalendar.min.js'></script>
+                <script src='../js/scheduler.min.js'></script>
+                <script src='../js/ms.js'></script>
+    </div>
 </body>
 
 </html>
