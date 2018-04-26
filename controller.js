@@ -148,11 +148,11 @@ module.exports = function (app) {
         var userRef = database.ref('/users');
         var roomsRef = database.ref('/rooms');
         var currRoomRef = database.ref('/rooms/' + newRoomName + '/events');
-        var eventId = newRoomName + newEventTitle;
+        var eventId = newRoomName + '-' + newEventTitle;
         console.log(eventId);
         //console.log(currRoomRef);
 
-        currRoomRef.child(eventId).set({
+        currRoomRef.child(currUser).set({
                 eventUser: currUser,
                 title: newEventTitle,
                 description: newEventDescription,
@@ -181,6 +181,31 @@ module.exports = function (app) {
         res.render('signin.ejs');
 
         return userRef.push('testing adding to firebase');
+    });
+
+    app.post('/searchForUser', function (req, res) {
+        console.log('called searchForUser');
+        var roomName = req.body.searchRoom;
+        var currUser = req.body.searchUser;
+        console.log(roomName);
+        console.log(currUser);
+
+        var currRoomRef = database.ref('/rooms/' + roomName + '/events/' + currUser);
+        //console.log(currRoomRef);
+
+        currRoomRef.on("value", function(snapshot) {
+            console.log("title: " + snapshot.val().title);
+            console.log("date: " + snapshot.val().date);
+            console.log("description: " + snapshot.val().description);
+            console.log("start: " + snapshot.val().start);
+            console.log("end: " + snapshot.val().end);
+
+            res.json({title: snapshot.val().title, date: snapshot.val().date, description: snapshot.val().description,
+            start: snapshot.val().start, end: snapshot.val().end});
+          });
+        
+          //res.render('search.ejs');
+          
     });
 
 
@@ -227,6 +252,11 @@ module.exports = function (app) {
         res.render('calendar.ejs');
     });
 
+    app.get('/search', function (req, res) {
+        console.log("Am in get /search")
+        res.render('search.ejs');
+    });
+
     app.get('/feedback', function (req, res) {
         console.log("Am in get /feedback")
         res.render('feedback.ejs');
@@ -249,7 +279,8 @@ module.exports = function (app) {
                 // Success
                 console.log("Success ");
                 //console.log(user);
-                res.render('profile.ejs');
+                //res.render('profile.ejs');
+                res.render('search.ejs');
             })
             .catch(function (error) {
                 // Error Handling

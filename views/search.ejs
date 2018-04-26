@@ -10,44 +10,39 @@
         <div class="container-fluid">
             <div class="login-container">
                 <div class="wrapper">
-                    <div align="middle">
+                    <div align="middle" style="width: 50%; margin:0 auto;">
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <form class="form-horizontal" method="POST" action="/searchForUser">
+
+                            <label for="searchRoom" class="control-label col-xs-4">Room</label>
+                            <div class="input-group col-xs-7">
+                                <input type="text" name="searchRoom" id="searchRoom" value="" class="form-control" />
+                            </div>
+                            <br>
+                            <label for="searchUser" class="control-label col-xs-4">User</label>
+                            <div class="input-group col-xs-7">
+                                <input type="text" name="searchUser" id="searchUser" value="" class="form-control" />
+                            </div>
+                            <br>
+                            <input class="btn btn-dark" style="background-color:black; color:white;" type="submit" value="Search" />
                     </div>
-                    <div class="form-signin">
+                    </form>
 
-
-
+                    <div id="foundInfo" style="display: none;">
+                        <p id="eventTitle" value=""></p>
+                        <p id="eventDate" value=""></p>
+                        <p id="eventDescription" value=""></p>
+                        <p id="eventStartTime" value=""></p>
+                        <p id="eventEndTime" value=""></p>
                         
-                        <form method="post" action="/signout">
-                            <h2 class="form-signin-heading">Profile</h2>
-                            <br>
-                            <br>
-                            <table cellpadding="15">
-                                <tr>
-                                    <th>Name</th>
-                                    <td>Peyton Puckett</td>
-                                </tr>
-                                <tr>
-                                    <th>Email</th>
-                                    <td>ppucket@purdue.edu</td>
-                                </tr>
-                                <tr>
-                                    <th>Reserved Rooms</th>
-                                    <td>Room 1: Date / duration</td>
-                                </tr>
-                                <tr>
-                                    <th>Account Type</th>
-                                    <td>Student / Faculty</td>
-                                </tr>
-                            </table>
-                            <br>
-                            <br>
-                            <br>
-                            <button class="btn btn-lg btn-primary btn-block" id="register_btn">LogOut</button>
-                        </form>
-
                     </div>
+
                 </div>
             </div>
+        </div>
         </div>
         <!--Footer-->
         <% include partials/footer %>
